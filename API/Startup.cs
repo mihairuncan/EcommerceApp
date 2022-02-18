@@ -24,7 +24,7 @@ namespace API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(typeof(MappingProfiles));
-            
+
             services.AddControllers();
             services.AddDbContext<StoreContext>(x =>
                 x.UseSqlite(_config.GetConnectionString("DefaultConnection")));
@@ -32,12 +32,19 @@ namespace API
 
             services.AddApplicationServices(); //extension method
             services.AddSwaggerDocumentation(); //extension method
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:4200");
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>(); // for error handling
             app.UseSwaggerDocumentation(); // extension method
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
@@ -47,6 +54,8 @@ namespace API
             app.UseRouting();
 
             app.UseStaticFiles();
+            
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
