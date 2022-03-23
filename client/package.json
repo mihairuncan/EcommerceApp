@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --open",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -19,11 +19,14 @@
     "@angular/platform-browser-dynamic": "~13.2.0",
     "@angular/router": "~13.2.0",
     "bootstrap": "^4.4.1",
+    "bootswatch": "^4.6.1",
     "font-awesome": "^4.7.0",
     "ngx-bootstrap": "^8.0.0",
+    "ngx-spinner": "^13.1.1",
     "ngx-toastr": "^14.2.2",
     "rxjs": "~7.5.0",
     "tslib": "^2.3.0",
+    "xng-breadcrumb": "^7.2.0",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
